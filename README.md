@@ -17,12 +17,13 @@ This project is a modern, responsive task management application designed to org
 
 ## Technical Stack
 
-  * **Framework:** Next.js
+  * **Framework:** Next.js (App Router) 
   * **Styling:** Tailwind CSS
   * **State Management:** React Context API
   * **Icons:** React Icons
   * **Data Handling:** `localStorage` for persistent data storage
   * **Unique Identifiers:** `uuid`
+  * **3D:** React Three Fiber (Three.js)
 
 -----
 
