@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
+/* Tailwind v4 custom variant for dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -10,12 +11,14 @@
 }
 
 @layer base {
+  html,
   body {
-    @apply bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100;
     font-family: var(--font-Poppins);
-    min-height: 100vh;
-    transition-property: background-color, color;
-    transition-duration: 300ms;
-    transition-timing-function: ease-in-out;
+    min-height: 100%;
+  }
+
+  body {
+    @apply bg-[#ffffff] text-[#2A2B2F] dark:bg-[#2A2B2F] dark:text-[#ffffff];
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }

@@ -17,18 +17,18 @@ export default function Header() {
     <header className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors">
       <h1 className="text-2xl font-semibold">Welcome back, Vincent 👋</h1>
       <div className="flex items-center space-x-6">
-        <div className="relative text-gray-400">
-          <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2" />
-          <input type="text" placeholder="Search" className="pl-10 pr-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors text-sm" />
+        <div className=" text-gray-400">
+          <FiSearch className="" />
+          </div>
+          <div className="relative text-slate-500 cursor-pointer" onClick={() => console.log('Notifications clicked!')}>
+          <FiBell size={24} />
+          <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
         </div>
         <div className="flex items-center space-x-2">
           <FiCalendar className="text-slate-500" />
           <span className="text-sm font-medium">{date}</span>
         </div>
-        <div className="relative text-slate-500 cursor-pointer" onClick={() => console.log('Notifications clicked!')}>
-          <FiBell size={24} />
-          <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-        </div>
+        
         <div className="w-10 h-10 rounded-full overflow-hidden">
           <img src="https://i.pravatar.cc/150?u=vincent" alt="User Avatar" />
         </div>

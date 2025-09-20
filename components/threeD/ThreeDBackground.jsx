@@ -1,52 +1,53 @@
-// components/ThreeDBackground.js
+// creates soft glowing particles that slowly float, giving a sense of depth.
 "use client";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Points, PointMaterial } from "@react-three/drei";
+import { useRef, useMemo } from "react";
+import * as THREE from "three";
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import { OrbitControls } from '@react-three/drei';
+function FloatingParticles() {
+  const ref = useRef();
+  const count = 3000;
 
-function Cubes() {
-  const group = useRef();
-  
-  // Animate the cubes to rotate slowly
-  useFrame(() => {
-    if (group.current) {
-      group.current.rotation.x += 0.0005;
-      group.current.rotation.y += 0.0008;
+  // Generate random positions once
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i++) {
+      arr[i] = (Math.random() - 0.5) * 10; // spread out particles
+    }
+    return arr;
+  }, [count]);
+
+  // Animate slow rotation
+  useFrame((state, delta) => {
+    if (ref.current) {
+      ref.current.rotation.y += delta * 0.02;
     }
   });
 
-  const positions = [];
-  const numCubes = 150;
-  for (let i = 0; i < numCubes; i++) {
-    positions.push([
-      (Math.random() - 0.5) * 50,
-      (Math.random() - 0.5) * 50,
-      (Math.random() - 0.5) * 50
-    ]);
-  }
-
   return (
-    <group ref={group}>
-      {positions.map((position, index) => (
-        <mesh key={index} position={position}>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="#888888" emissive="#1a1a1a" />
-        </mesh>
-      ))}
+    <group rotation={[0, 0, 0]}>
+      <Points ref={ref} positions={positions} stride={3}>
+        <PointMaterial
+          transparent
+          color="#ffffff"
+          size={0.03}
+          sizeAttenuation={true}
+          depthWrite={false}
+        />
+      </Points>
     </group>
   );
 }
 
 export default function ThreeDBackground() {
   return (
-    <div className="fixed inset-0 z-0 opacity-20">
-      <Canvas>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1.5} />
-        <Cubes />
-        <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
+    <div className="absolute inset-0 -z-10">
+      <Canvas camera={{ position: [0, 0, 5] }}>
+        <ambientLight intensity={0.2} />
+        <FloatingParticles />
       </Canvas>
     </div>
   );
 }
+

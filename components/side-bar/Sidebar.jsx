@@ -80,14 +80,25 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <div className="flex items-center justify-between p-2 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer transition-colors" onClick={toggleTheme}>
-        <div className={`p-2 rounded-full ${theme === 'light' ? 'bg-white' : ''}`}>
-          <FiSun className={`h-5 w-5 ${theme === 'light' ? 'text-yellow-500' : 'text-slate-400'}`} />
-        </div>
-        <div className={`p-2 rounded-full ${theme === 'dark' ? 'bg-slate-900' : ''}`}>
-          <FiMoon className={`h-5 w-5 ${theme === 'dark' ? 'text-white' : 'text-slate-400'}`} />
-        </div>
+      <div
+      className="flex items-center justify-between p-2 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer transition-colors"
+      onClick={toggleTheme}
+    >
+      <div className={`p-2 rounded-full ${theme === "light" ? "bg-white" : ""}`}>
+        <FiSun
+          className={`h-5 w-5 ${
+            theme === "light" ? "text-slate-700" : "text-slate-400"
+          }`}
+        />
       </div>
+      <div className={`p-2 rounded-full ${theme === "dark" ? "bg-slate-900" : ""}`}>
+        <FiMoon
+          className={`h-5 w-5 ${
+            theme === "dark" ? "text-white" : "text-slate-400"
+          }`}
+        />
+      </div>
+    </div>
     </aside>
   );
 }
