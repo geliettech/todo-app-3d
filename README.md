@@ -11,7 +11,7 @@ This project is a modern, responsive task management application designed to org
   * **Interactive Progress Tracking:** Each task card features a real-time progress bar that automatically updates its value and color based on the task's status.
   * **Intuitive UI/UX:** Features include smooth drag-and-drop functionality for moving tasks, a persistent light/dark theme toggle, and a subtle hover-and-scale effect on task cards for enhanced user feedback.
   * **Scalable Architecture:** Built with a React Context API for centralized state management, ensuring a predictable data flow and easy-to-manage application state.
-  * A 3D background behind the task list. 
+  * **A 3D background behind the task list:** created soft glowing particles that slowly float, giving a sense of depth.
 
 -----
 
