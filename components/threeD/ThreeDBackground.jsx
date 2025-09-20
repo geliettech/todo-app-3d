@@ -31,7 +31,7 @@ function FloatingParticles() {
         <PointMaterial
           transparent
           color="#ffffff"
-          size={0.03}
+          size={0.05}
           sizeAttenuation={true}
           depthWrite={false}
         />
