@@ -1,7 +1,7 @@
 // components/side-bar/IconBar.jsx
 import Image from "next/image";
 
-export default function IconBar() {
+export default function SideBar() {
   const icons = [
     "/icon-bar/Logo.png",
     "/icon-bar/Icon-1.png", // active
@@ -16,14 +16,13 @@ export default function IconBar() {
   const activeIcon = "/icon-bar/Icon-1.png";
 
   return (
-    <div className="flex flex-col justify-between bg-slate-900 dark:bg-black py-6 px-6">
+    <div className="side-bar flex flex-col justify-between">
       <div className="flex flex-col items-center space-y-6">
-        <div className="relative w-6 h-6">
+        <div className="relative w-8 h-8">
           <Image
             src="/icon-bar/dots.png"
             alt="back icon"
-            fill
-    className="object-contain"
+            width={24} height={24}
           />
         </div>
         {icons.map((icon, index) => {
@@ -31,19 +30,19 @@ export default function IconBar() {
           return (
             <div
               key={index}
-              className={`cursor-pointer transition-colors p-2 rounded-lg relative w-6 h-6 ${
+              className={`cursor-pointer transition-colors rounded-full relative w-6 h-6 ${
                 isActive
-                  ? "bg-slate-500 text-white shadow-lg"
-                  : "text-gray-400 hover:text-white hover:bg-slate-700"
+                  ? "bg-slate-500 text-[#ffffff]"
+                  : "text-gray-400"
               }`}
             >
-  <Image
-    src={icon}
-    alt={`icon-${index}`}
-    fill
-    className="object-contain"
-  />
-</div>
+              <Image
+                src={icon}
+                alt={`icon-${index}`}
+                fill
+                className="object-contain"
+              />
+            </div>
           );
         })}
       </div>
@@ -52,7 +51,7 @@ export default function IconBar() {
           src="/icon-bar/Icon.svg"
           alt="back icon"
           fill
-    className="object-contain"
+          className="object-contain"
         />
       </div>
     </div>

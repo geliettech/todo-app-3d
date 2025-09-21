@@ -4,9 +4,14 @@ import React, { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useTasks } from "@/context/TaskContext";
 import { usePathname } from "next/navigation";
-import { FiArrowRight, FiArrowDown, FiGrid, FiSun, FiMoon } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiArrowDown,
+  FiSun,
+  FiMoon,
+} from "react-icons/fi";
 
-export default function Sidebar() {
+export default function Projects() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { tasks } = useTasks();
@@ -75,8 +80,11 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="p-6 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-2xl transition-colors duration-300">
-      <h1 className="mb-12 text-slate-900 dark:text-white">Projects</h1>
+    <aside className=" flex flex-col justify-between min-h-100vh p-6 bg-[#ffffff] dark:bg-slate-800 text-slate-800 dark:text-[#ffffff] shadow-2xl transition-colors duration-300">
+      <div className="">
+        <h1 className="mb-12 text-slate-900 dark:text-[#ffffff] font-bold text-2xl">
+        Projects
+      </h1>
 
       <nav className="space-y-6">
         {navItems.map((item) => {
@@ -86,16 +94,16 @@ export default function Sidebar() {
           return (
             <div key={item.id} className="">
               <div
-                className={`flex items-center justify-between cursor-pointer font-semibold text-lg
+                className={`flex items-center justify-between cursor-pointer font-semibold text-base
                   ${
                     parentActive
                       ? "text-slate-900 dark:text-white"
-                      : "text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                      : "text-slate-400"
                   }`}
                 onClick={() => toggleSection(item.id)}
               >
                 <span>{item.name}</span>
-                {item.icon}
+                <span>{item.icon}</span>
               </div>
 
               {/* Dropdown items */}
@@ -104,13 +112,16 @@ export default function Sidebar() {
                   {item.all.map((sub) => (
                     <div
                       key={sub.id}
-                      className={`cursor-pointer p-1 rounded-md transition-colors ${
+                      className={`cursor-pointer p-1 rounded-md transition-colors font-medium text-sm ${
                         activeItem[item.id] === sub.id
-                          ? "bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white font-medium text-sm"
-                          : "text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-500"
+                          ? "bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white"
+                          : "text-slate-500 dark:text-slate-300"
                       }`}
                       onClick={() =>
-                        setActiveItem((prev) => ({ ...prev, [item.id]: sub.id }))
+                        setActiveItem((prev) => ({
+                          ...prev,
+                          [item.id]: sub.id,
+                        }))
                       }
                     >
                       {sub.label}
@@ -122,6 +133,8 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      </div>
+      
 
       {/* Theme toggle */}
       <div
@@ -138,7 +151,9 @@ export default function Sidebar() {
           />
         </div>
         <div
-          className={`p-2 rounded-full ${theme === "dark" ? "bg-slate-900" : ""}`}
+          className={`p-2 rounded-full ${
+            theme === "dark" ? "bg-slate-900" : ""
+          }`}
         >
           <FiMoon
             className={`h-5 w-5 ${

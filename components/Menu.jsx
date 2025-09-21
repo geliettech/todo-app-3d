@@ -2,7 +2,7 @@
 "use client";
 import { FiGrid, FiPlus, FiFilter, FiArrowDown, FiMoreVertical } from 'react-icons/fi';
 
-export default function TitleBar() {
+export default function Menu() {
   return (
     <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors">
       <div className="flex items-center space-x-6">
