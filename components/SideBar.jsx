@@ -3,24 +3,24 @@ import Image from "next/image";
 
 export default function SideBar() {
   const icons = [
-    "/icon-bar/Logo.png",
-    "/icon-bar/Icon-1.png", // active
-    "/icon-bar/Icon-2.svg",
-    "/icon-bar/Icon-3.png",
-    "/icon-bar/Icon-4.png",
-    "/icon-bar/Icon-5.png",
-    "/icon-bar/Icon-6.png",
-    "/icon-bar/Icon-7.png",
+    "/sideBar-icons/Logo.png",
+    "/sideBar-icons/Icon-1.png", // active
+    "/sideBar-icons/Icon-2.svg",
+    "/sideBar-icons/Icon-3.png",
+    "/sideBar-icons/Icon-4.png",
+    "/sideBar-icons/Icon-5.png",
+    "/sideBar-icons/Icon-6.png",
+    "/sideBar-icons/Icon-7.png",
   ];
 
-  const activeIcon = "/icon-bar/Icon-1.png";
+  const activeIcon = "/sideBar-icons/Icon-1.png";
 
   return (
     <div className="side-bar flex flex-col justify-between">
       <div className="flex flex-col items-center space-y-4">
         <div className="relative w-9 h-1">
           <Image
-            src="/icon-bar/dots.png"
+            src="/sideBar-icons/dots.png"
             alt="back icon"
             fill
             className="object-contain"
@@ -48,7 +48,7 @@ export default function SideBar() {
       </div>
       <div className="relative w-6 h-6">
         <Image
-          src="/icon-bar/Icon.svg"
+          src="/sideBar-icons/Icon.svg"
           alt="back icon"
           fill
           className="object-contain"
