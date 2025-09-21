@@ -1,11 +1,11 @@
-// components/side-bar/IconBar.jsx
+// components/side-bar/SideBar.jsx
 import Image from "next/image";
 
 export default function SideBar() {
   const icons = [
     "/icon-bar/Logo.png",
     "/icon-bar/Icon-1.png", // active
-    "/icon-bar/Icon-2.png",
+    "/icon-bar/Icon-2.svg",
     "/icon-bar/Icon-3.png",
     "/icon-bar/Icon-4.png",
     "/icon-bar/Icon-5.png",
@@ -17,12 +17,13 @@ export default function SideBar() {
 
   return (
     <div className="side-bar flex flex-col justify-between">
-      <div className="flex flex-col items-center space-y-6">
-        <div className="relative w-8 h-8">
+      <div className="flex flex-col items-center space-y-4">
+        <div className="relative w-9 h-1">
           <Image
             src="/icon-bar/dots.png"
             alt="back icon"
-            width={24} height={24}
+            fill
+            className="object-contain"
           />
         </div>
         {icons.map((icon, index) => {
@@ -30,23 +31,22 @@ export default function SideBar() {
           return (
             <div
               key={index}
-              className={`cursor-pointer transition-colors rounded-full relative w-6 h-6 ${
-                isActive
-                  ? "bg-slate-500 text-[#ffffff]"
-                  : "text-gray-400"
+              className={`cursor-pointer transition-colors rounded-full relative w-12 h-12 flex justify-center items-center ${
+                isActive ? "bg-[#ffffff1a] text-[#ffffff]" : "text-[#e1e1e180]"
               }`}
             >
               <Image
                 src={icon}
                 alt={`icon-${index}`}
-                fill
+                width={22}
+                height={22}
                 className="object-contain"
               />
             </div>
           );
         })}
       </div>
-      <div className="text-white text-2xl font-bold flex flex-col items-center space-y-4 relative w-6 h-6">
+      <div className="relative w-6 h-6">
         <Image
           src="/icon-bar/Icon.svg"
           alt="back icon"

@@ -1,13 +1,13 @@
-import SideBar from '@/components/SideBar';
-import Projects from '@/components/Projects';
-import Header from '@/components/Header';
-import Menu from '@/components/Menu';
-import TaskBoard from '@/components/TaskBoard/TaskBoard';
-import ThreeDBackground from '@/components/ThreeDBackground';
+import SideBar from "@/components/SideBar";
+import Projects from "@/components/Projects";
+import Header from "@/components/Header";
+import Menu from "@/components/Menu";
+import TaskBoard from "@/components/TaskBoard/TaskBoard";
+import ThreeDBackground from "@/components/ThreeDBackground";
 
 export default function HomePage() {
   return (
-    <div className="relative flex min-h-screen max-w-[100%]">
+    <div className="relative flex min-h-[1022px] max-w-[100%]">
       {/* 3D Background */}
       <ThreeDBackground />
 
