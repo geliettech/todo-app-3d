@@ -1,6 +1,7 @@
-// context/TaskContext.js
+// context/TaskContext.jsx
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
+import { v4 as uuidv4 } from "uuid"; // ✅ FIX: import uuid
 import InitialTasks from "./DefaultTasks.jsx";
 
 const TaskContext = createContext();

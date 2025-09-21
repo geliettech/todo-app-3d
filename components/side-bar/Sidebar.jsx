@@ -1,104 +1,152 @@
 // components/Sidebar.js
 "use client";
-import React, { useState } from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import { useTasks } from '@/context/TaskContext';
-import { FiSun, FiMoon, FiGrid, FiList, FiCheckCircle, FiClock, FiBell, FiMessageCircle, FiPlus } from 'react-icons/fi';
+import React, { useState } from "react";
+import { useTheme } from "@/context/ThemeContext";
+import { useTasks } from "@/context/TaskContext";
+import { usePathname } from "next/navigation";
+import { FiArrowRight, FiArrowDown, FiGrid, FiSun, FiMoon } from "react-icons/fi";
 
 export default function Sidebar() {
+  const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
-  const { tasks, filterStatus, setFilterStatus } = useTasks();
-  const [activeProject, setActiveProject] = useState('design-system'); // Corrected initial state
+  const { tasks } = useTasks();
 
-  const getCountByStatus = (status) => tasks.filter(task => task.status === status).length;
+  // Default open sections
+  const [open, setOpen] = useState(["Projects", "Tasks"]);
 
-  const getTaskLinkClasses = (status) => {
-    const baseClasses = "flex items-center p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer";
-    const activeClasses = status === filterStatus ? " bg-indigo-500 text-white font-medium" : " text-slate-800 dark:text-slate-200";
-    return baseClasses + activeClasses;
-  };
+  // Active defaults
+  const [activeItem, setActiveItem] = useState({
+    Projects: "design-system",
+    Tasks: "inprogress",
+  });
 
-  const getProjectLinkClasses = (project) => {
-    const baseClasses = "flex items-center p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer";
-    const activeClasses = project === activeProject ? " bg-indigo-500 text-white font-medium" : " text-slate-800 dark:text-slate-200";
-    return baseClasses + activeClasses;
+  const getCountByStatus = (status) =>
+    tasks.filter((task) => task.status === status).length;
+
+  const navItems = [
+    {
+      id: "Teams",
+      name: "Teams",
+      all: [{ id: "no-team", label: "No team yet" }],
+      icon: <FiArrowRight />,
+    },
+    {
+      id: "Projects",
+      name: "Projects",
+      all: [
+        { id: "design-system", label: "Design system" },
+        { id: "user-flow", label: "User flow" },
+        { id: "ux-research", label: "UX research" },
+      ],
+      icon: <FiArrowDown />,
+    },
+    {
+      id: "Tasks",
+      name: "Tasks",
+      all: [
+        { id: "all", label: `All tasks (${tasks.length})` },
+        { id: "todo", label: `To do (${getCountByStatus("todo")})` },
+        {
+          id: "inprogress",
+          label: `In progress (${getCountByStatus("inprogress")})`,
+        },
+        { id: "done", label: `Done (${getCountByStatus("done")})` },
+      ],
+      icon: <FiArrowDown />,
+    },
+    {
+      id: "Reminders",
+      name: "Reminders",
+      all: [{ id: "no-reminder", label: "No Reminder yet" }],
+      icon: <FiArrowRight />,
+    },
+    {
+      id: "Messengers",
+      name: "Messengers",
+      all: [{ id: "no-messenger", label: "No Messenger yet" }],
+      icon: <FiArrowRight />,
+    },
+  ];
+
+  const toggleSection = (id) => {
+    setOpen((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+    );
   };
 
   return (
-    <aside className="w-72 min-h-screen p-6 flex flex-col justify-between bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-xl transition-colors duration-300">
-      <div>
-        <div className="flex items-center space-x-2 text-xl font-bold mb-12">
-          <span className="text-slate-900 dark:text-white">Projects</span>
-        </div>
+    <aside className="p-6 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-2xl transition-colors duration-300">
+      <h1 className="mb-12 text-slate-900 dark:text-white">Projects</h1>
 
-        <nav className="space-y-6">
-          <div className="text-slate-400 font-semibold uppercase text-xs">Projects</div>
-          <div className="space-y-2">
-            <div onClick={() => setActiveProject('all-projects')} className={getProjectLinkClasses('all-projects')}>
-              <FiGrid />
-              <span className="ml-2">All projects (3)</span>
-            </div>
-            <div onClick={() => setActiveProject('design-system')} className={getProjectLinkClasses('design-system')}>
-              <span className="ml-2">Design system</span>
-            </div>
-            <div onClick={() => setActiveProject('user-flow')} className={getProjectLinkClasses('user-flow')}>
-              <span className="ml-2">User flow</span>
-            </div>
-            <div onClick={() => setActiveProject('ux-research')} className={getProjectLinkClasses('ux-research')}>
-              <span className="ml-2">UX research</span>
-            </div>
-          </div>
+      <nav className="space-y-6">
+        {navItems.map((item) => {
+          // Check if this parent has an active child
+          const parentActive = !!activeItem[item.id];
 
-          <div className="text-slate-400 font-semibold uppercase text-xs pt-4">Tasks</div>
-          <div className="space-y-2">
-            <div onClick={() => setFilterStatus('all')} className={getTaskLinkClasses('all')}>
-              <FiList />
-              <span className="ml-2">All tasks ({tasks.length})</span>
-            </div>
-            <div onClick={() => setFilterStatus('todo')} className={getTaskLinkClasses('todo')}>
-              <FiClock />
-              <span className="ml-2">To do ({getCountByStatus('todo')})</span>
-            </div>
-            <div onClick={() => setFilterStatus('inprogress')} className={getTaskLinkClasses('inprogress')}>
-              <FiCheckCircle />
-              <span className="ml-2">In progress ({getCountByStatus('inprogress')})</span>
-            </div>
-            <div onClick={() => setFilterStatus('done')} className={getTaskLinkClasses('done')}>
-              <FiGrid />
-              <span className="ml-2">Done ({getCountByStatus('done')})</span>
-            </div>
-          </div>
-          
-          <a href="#" className="flex items-center p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors pt-4">
-            <FiBell />
-            <span className="ml-2">Reminders</span>
-          </a>
-          <a href="#" className="flex items-center p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-            <FiMessageCircle />
-            <span className="ml-2">Messengers</span>
-          </a>
-        </nav>
-      </div>
+          return (
+            <div key={item.id} className="">
+              <div
+                className={`flex items-center justify-between cursor-pointer font-semibold text-lg
+                  ${
+                    parentActive
+                      ? "text-slate-900 dark:text-white"
+                      : "text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                  }`}
+                onClick={() => toggleSection(item.id)}
+              >
+                <span>{item.name}</span>
+                {item.icon}
+              </div>
 
+              {/* Dropdown items */}
+              {open.includes(item.id) && (
+                <div className="ml-4 mt-2 space-y-1">
+                  {item.all.map((sub) => (
+                    <div
+                      key={sub.id}
+                      className={`cursor-pointer p-1 rounded-md transition-colors ${
+                        activeItem[item.id] === sub.id
+                          ? "bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white font-medium text-sm"
+                          : "text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-500"
+                      }`}
+                      onClick={() =>
+                        setActiveItem((prev) => ({ ...prev, [item.id]: sub.id }))
+                      }
+                    >
+                      {sub.label}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+
+      {/* Theme toggle */}
       <div
-      className="flex items-center justify-between p-2 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer transition-colors"
-      onClick={toggleTheme}
-    >
-      <div className={`p-2 rounded-full ${theme === "light" ? "bg-white" : ""}`}>
-        <FiSun
-          className={`h-5 w-5 ${
-            theme === "light" ? "text-slate-700" : "text-slate-400"
-          }`}
-        />
+        className="flex items-center justify-between p-2 mt-10 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer transition-colors"
+        onClick={toggleTheme}
+      >
+        <div
+          className={`p-2 rounded-full ${theme === "light" ? "bg-white" : ""}`}
+        >
+          <FiSun
+            className={`h-5 w-5 ${
+              theme === "light" ? "text-slate-700" : "text-slate-400"
+            }`}
+          />
+        </div>
+        <div
+          className={`p-2 rounded-full ${theme === "dark" ? "bg-slate-900" : ""}`}
+        >
+          <FiMoon
+            className={`h-5 w-5 ${
+              theme === "dark" ? "text-white" : "text-slate-400"
+            }`}
+          />
+        </div>
       </div>
-      <div className={`p-2 rounded-full ${theme === "dark" ? "bg-slate-900" : ""}`}>
-        <FiMoon
-          className={`h-5 w-5 ${
-            theme === "dark" ? "text-white" : "text-slate-400"
-          }`}
-        />
-      </div>
-    </div>
     </aside>
   );
 }

@@ -53,7 +53,7 @@ export default function TaskCard({ task }) {
     <>
       <div 
         className={`relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md space-y-4 transition-all duration-200 ease-in-out
-          ${isHovered ? 'shadow-lg scale-102' : ''} // Apply shadow and scale on hover
+          ${isHovered ? 'shadow-xl scale-102 z-10' : ''} // Apply shadow and scale on hover
           ${task.status === 'todo' ? 'cursor-pointer' : ''} // Only apply cursor for todo tasks
         `}
         onMouseEnter={() => setIsHovered(true)}
