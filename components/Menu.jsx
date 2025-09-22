@@ -26,7 +26,7 @@ export default function Menu() {
           <span>Sort</span>
         </div>
         <FiMoreVertical className="text-slate-500 cursor-pointer hover:text-slate-700 transition-colors" onClick={() => console.log('More options clicked!')} />
-        <button className="flex items-center space-x-2 px-4 py-2 bg-indigo-500 text-white rounded-lg font-medium shadow-md hover:bg-indigo-600 transition-colors" onClick={() => console.log('New template clicked!')}>
+        <button className="flex items-center space-x-2 px-4 py-2 bg-black text-white rounded-lg font-medium shadow-md hover:bg-indigo-600 transition-colors" onClick={() => console.log('New template clicked!')}>
           <FiPlus />
           <span>New template</span>
         </button>

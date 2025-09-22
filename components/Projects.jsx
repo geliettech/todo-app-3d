@@ -81,11 +81,11 @@ export default function Projects() {
   };
 
   return (
-    <aside className="flex flex-col justify-between h-full projects shadow-2xl transition-colors duration-300">
+    <aside className="projects flex flex-col justify-between h-full w-[218px] shadow-2xl transition-colors duration-300">
       <div>
         {/* Sidebar Title */}
         <div className="flex flex-row justify-between items-center gap-2">
-          <h1 className="text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7">
+          <h1 className="text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7 font-Exo">
             Projects
           </h1>
           <Image
@@ -102,26 +102,25 @@ export default function Projects() {
         </div>
 
         {/* Nav Sections */}
-        <nav className="space-y-6 mt-6">
+        <nav className="space-y-6 mt-9">
           {navItems.map((item) => {
             const parentActive = !!activeItem[item.id];
             return (
               <div key={item.id}>
                 <div
-                  className={`flex items-center justify-between cursor-pointer font-semibold text-base ${
+                  className={`flex items-center justify-between cursor-pointer ${
                     parentActive
-                      ? "text-slate-900 dark:text-white"
-                      : "text-slate-400"
+                      ? "text-[#1C1D22] dark:text-[#ffffff]"
+                      : "text-slate-500 dark:text-slate-300"
                   }`}
                   onClick={() => toggleSection(item.id)}
                 >
-                  <span>{item.name}</span>
+                  <span className="font-Exo font-bold text-base leading-4">{item.name}</span>
                   <Image
                     src={getArrowIcon(item.id)}
                     alt={`icon-${item.id}`}
-                    width={10}
-                    height={10}
-                    className="object-contain"
+                    width={4}
+                    height={8}
                   />
                 </div>
 
@@ -167,7 +166,7 @@ export default function Projects() {
             src={
               theme === "light"
                 ? "/projects-icons/sun-light.png"
-                : "/projects-icons/moon-light.png"
+                : "/projects-icons/sun-dark.png"
             }
             alt="moon icon"
             width={20}
@@ -187,7 +186,7 @@ export default function Projects() {
             src={
               theme === "dark"
                 ? "/projects-icons/moon-dark.png"
-                : "/projects-icons/sun-dark.png"
+                : "/projects-icons/moon-light.png"
             }
             alt="sun icon"
             width={20}
