@@ -4,7 +4,7 @@ import { FiGrid, FiPlus, FiFilter, FiArrowDown, FiMoreVertical } from 'react-ico
 
 export default function Menu() {
   return (
-    <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors">
+    <div className="flex items-center justify-between menu border-b border-slate-200 dark:border-slate-700  text-slate-900 dark:text-white transition-colors">
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => console.log('Board view clicked!')}>
           <FiGrid className="text-indigo-500" />

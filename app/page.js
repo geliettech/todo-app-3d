@@ -7,7 +7,7 @@ import ThreeDBackground from "@/components/ThreeDBackground";
 
 export default function HomePage() {
   return (
-    <div className="relative flex min-h-[1022px] max-w-[100%]">
+    <div className="relative flex min-h-screen">
       {/* 3D Background */}
       <ThreeDBackground />
 

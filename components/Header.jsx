@@ -7,25 +7,25 @@ import { FiSearch, FiCalendar, FiBell } from 'react-icons/fi';
 export default function Header() {
   const [date, setDate] = useState('');
 
-  useEffect(() => {
-    const today = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    setDate(today.toLocaleDateString('en-US', options));
-  }, []);
+useEffect(() => {
+  const today = new Date();
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  setDate(today.toLocaleDateString('en-GB', options)); // 'en-GB' gives this format "22 Sep 2025"
+}, []);
 
   return (
-    <header className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors">
+    <header className="flex items-center justify-between header  transition-colors">
       <h1 className="text-2xl font-semibold">Welcome back, Vincent 👋</h1>
       <div className="flex items-center space-x-6">
         <div className=" text-gray-400">
-          <FiSearch className="" />
+          <FiSearch size={20} className="" />
           </div>
           <div className="relative text-slate-500 cursor-pointer" onClick={() => console.log('Notifications clicked!')}>
-          <FiBell size={24} />
+          <FiBell size={20} />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
         </div>
         <div className="flex items-center space-x-2">
-          <FiCalendar className="text-slate-500" />
+          <FiCalendar size={20} className="text-slate-500" />
           <span className="text-sm font-medium">{date}</span>
         </div>
         

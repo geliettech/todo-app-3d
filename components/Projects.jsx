@@ -115,13 +115,21 @@ export default function Projects() {
                   }`}
                   onClick={() => toggleSection(item.id)}
                 >
-                  <span className="font-Exo font-bold text-base leading-4">{item.name}</span>
-                  <Image
-                    src={getArrowIcon(item.id)}
-                    alt={`icon-${item.id}`}
-                    width={4}
-                    height={8}
-                  />
+                  <span className="font-Exo font-bold text-base leading-4">
+                    {item.name}
+                  </span>
+                  <div
+                    className={`relative cursor-pointer ${
+                      parentActive ? "w-2 h-6" : "w-6 h-2"
+                    }`}
+                  >
+                    <Image
+                      src={getArrowIcon(item.id)}
+                      alt={`icon-${item.id}`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
 
                 {/* Dropdown items */}
