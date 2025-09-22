@@ -16,7 +16,7 @@ export default function SideBar() {
   const activeIcon = "/sideBar-icons/Icon-1.png";
 
   return (
-    <div className="side-bar flex flex-col justify-between">
+    <div className="side-bar flex flex-col justify-between h-full">
       <div className="flex flex-col items-center space-y-4">
         <div className="relative w-9 h-1">
           <Image

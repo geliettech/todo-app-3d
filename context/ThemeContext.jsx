@@ -1,34 +1,37 @@
 "use client";
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
 
-  // get value to be store in local Storage
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    const initialTheme = storedTheme || "light";
-    setTheme(initialTheme);
+    // Load saved theme or fallback
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
 
-    document.documentElement.classList.add(initialTheme);
+    applyTheme(initialTheme);
   }, []);
 
-  // set value to store in local Storage
-  useEffect(() => {
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const applyTheme = (newTheme) => {
+    setTheme(newTheme);
 
-  // dark mode toggle
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    // Remove both classes before adding new one
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(newTheme);
+
+    // Save preference
+    localStorage.setItem("theme", newTheme);
   };
 
+  const setLight = () => applyTheme("light");
+  const setDark = () => applyTheme("dark");
+  const toggleTheme = () => applyTheme(theme === "light" ? "dark" : "light");
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setLight, setDark, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

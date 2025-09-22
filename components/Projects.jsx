@@ -1,25 +1,16 @@
-// components/Sidebar.js
 "use client";
 import React, { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useTasks } from "@/context/TaskContext";
 import { usePathname } from "next/navigation";
-import {
-  FiArrowRight,
-  FiArrowDown,
-  FiSun,
-  FiMoon,
-} from "react-icons/fi";
+import Image from "next/image";
 
 export default function Projects() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setLight, setDark } = useTheme();
   const { tasks } = useTasks();
 
-  // Default open sections
   const [open, setOpen] = useState(["Projects", "Tasks"]);
-
-  // Active defaults
   const [activeItem, setActiveItem] = useState({
     Projects: "design-system",
     Tasks: "inprogress",
@@ -33,7 +24,6 @@ export default function Projects() {
       id: "Teams",
       name: "Teams",
       all: [{ id: "no-team", label: "No team yet" }],
-      icon: <FiArrowRight />,
     },
     {
       id: "Projects",
@@ -43,7 +33,6 @@ export default function Projects() {
         { id: "user-flow", label: "User flow" },
         { id: "ux-research", label: "UX research" },
       ],
-      icon: <FiArrowDown />,
     },
     {
       id: "Tasks",
@@ -57,19 +46,16 @@ export default function Projects() {
         },
         { id: "done", label: `Done (${getCountByStatus("done")})` },
       ],
-      icon: <FiArrowDown />,
     },
     {
       id: "Reminders",
       name: "Reminders",
       all: [{ id: "no-reminder", label: "No Reminder yet" }],
-      icon: <FiArrowRight />,
     },
     {
       id: "Messengers",
       name: "Messengers",
       all: [{ id: "no-messenger", label: "No Messenger yet" }],
-      icon: <FiArrowRight />,
     },
   ];
 
@@ -79,86 +65,134 @@ export default function Projects() {
     );
   };
 
+  // 🔑 Helper function for arrow icons
+  const getArrowIcon = (id) => {
+    const isOpen = open.includes(id);
+
+    if (isOpen) {
+      return theme === "light"
+        ? "/projects-icons/arrowDown-light.png"
+        : "/projects-icons/arrowDown-dark.png";
+    }
+
+    return theme === "light"
+      ? "/projects-icons/arrowRight-light.png"
+      : "/projects-icons/arrowRight-dark.png";
+  };
+
   return (
-    <aside className=" flex flex-col justify-between min-h-100vh p-6 bg-[#ffffff] dark:bg-slate-800 text-slate-800 dark:text-[#ffffff] shadow-2xl transition-colors duration-300">
-      <div className="">
-        <h1 className="mb-12 text-slate-900 dark:text-[#ffffff] font-bold text-2xl">
-        Projects
-      </h1>
+    <aside className="flex flex-col justify-between h-full projects shadow-2xl transition-colors duration-300">
+      <div>
+        {/* Sidebar Title */}
+        <div className="flex flex-row justify-between items-center gap-2">
+          <h1 className="text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7">
+            Projects
+          </h1>
+          <Image
+            src={
+              theme === "light"
+                ? "/projects-icons/circlePlus-light.png"
+                : "/projects-icons/circlePlus-dark.png"
+            }
+            alt="circle plus icon"
+            width={28}
+            height={28}
+            className="object-contain"
+          />
+        </div>
 
-      <nav className="space-y-6">
-        {navItems.map((item) => {
-          // Check if this parent has an active child
-          const parentActive = !!activeItem[item.id];
-
-          return (
-            <div key={item.id} className="">
-              <div
-                className={`flex items-center justify-between cursor-pointer font-semibold text-base
-                  ${
+        {/* Nav Sections */}
+        <nav className="space-y-6 mt-6">
+          {navItems.map((item) => {
+            const parentActive = !!activeItem[item.id];
+            return (
+              <div key={item.id}>
+                <div
+                  className={`flex items-center justify-between cursor-pointer font-semibold text-base ${
                     parentActive
                       ? "text-slate-900 dark:text-white"
                       : "text-slate-400"
                   }`}
-                onClick={() => toggleSection(item.id)}
-              >
-                <span>{item.name}</span>
-                <span>{item.icon}</span>
-              </div>
-
-              {/* Dropdown items */}
-              {open.includes(item.id) && (
-                <div className="ml-4 mt-2 space-y-1">
-                  {item.all.map((sub) => (
-                    <div
-                      key={sub.id}
-                      className={`cursor-pointer p-1 rounded-md transition-colors font-medium text-sm ${
-                        activeItem[item.id] === sub.id
-                          ? "bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white"
-                          : "text-slate-500 dark:text-slate-300"
-                      }`}
-                      onClick={() =>
-                        setActiveItem((prev) => ({
-                          ...prev,
-                          [item.id]: sub.id,
-                        }))
-                      }
-                    >
-                      {sub.label}
-                    </div>
-                  ))}
+                  onClick={() => toggleSection(item.id)}
+                >
+                  <span>{item.name}</span>
+                  <Image
+                    src={getArrowIcon(item.id)}
+                    alt={`icon-${item.id}`}
+                    width={10}
+                    height={10}
+                    className="object-contain"
+                  />
                 </div>
-              )}
-            </div>
-          );
-        })}
-      </nav>
-      </div>
-      
 
-      {/* Theme toggle */}
-      <div
-        className="flex items-center justify-between p-2 mt-10 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer transition-colors"
-        onClick={toggleTheme}
-      >
+                {/* Dropdown items */}
+                {open.includes(item.id) && (
+                  <div className="ml-4 mt-2 space-y-1">
+                    {item.all.map((sub) => (
+                      <div
+                        key={sub.id}
+                        className={`cursor-pointer p-1 rounded-md transition-colors font-medium text-sm ${
+                          activeItem[item.id] === sub.id
+                            ? "bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white"
+                            : "text-slate-500 dark:text-slate-300"
+                        }`}
+                        onClick={() =>
+                          setActiveItem((prev) => ({
+                            ...prev,
+                            [item.id]: sub.id,
+                          }))
+                        }
+                      >
+                        {sub.label}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+      </div>
+
+      {/* Theme Toggle */}
+      <div className="flex items-center justify-between p-2 mt-10 bg-slate-200 dark:bg-slate-700 rounded-full transition-colors">
+        {/* Moon button (dark) */}
         <div
-          className={`p-2 rounded-full ${theme === "light" ? "bg-white" : ""}`}
+          onClick={setLight}
+          className={`p-2 rounded-full cursor-pointer ${
+            theme === "light" ? "bg-white" : ""
+          }`}
         >
-          <FiSun
-            className={`h-5 w-5 ${
-              theme === "light" ? "text-slate-700" : "text-slate-400"
-            }`}
+          <Image
+            src={
+              theme === "light"
+                ? "/projects-icons/sun-light.png"
+                : "/projects-icons/moon-light.png"
+            }
+            alt="moon icon"
+            width={20}
+            height={20}
+            className="h-5 w-5 object-contain"
           />
         </div>
+
+        {/* Sun button (light) */}
         <div
-          className={`p-2 rounded-full ${
+          onClick={setDark}
+          className={`p-2 rounded-full cursor-pointer ${
             theme === "dark" ? "bg-slate-900" : ""
           }`}
         >
-          <FiMoon
-            className={`h-5 w-5 ${
-              theme === "dark" ? "text-white" : "text-slate-400"
-            }`}
+          <Image
+            src={
+              theme === "dark"
+                ? "/projects-icons/moon-dark.png"
+                : "/projects-icons/sun-dark.png"
+            }
+            alt="sun icon"
+            width={20}
+            height={20}
+            className="h-5 w-5 object-contain"
           />
         </div>
       </div>

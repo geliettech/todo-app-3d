@@ -1,19 +1,22 @@
 /* app/globals.css */
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 /* Tailwind v4 custom variant for dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-Poppins: "Poppins", sans-serif;
+  --font-Exo: "Exo 2", sans-serif;
 }
 
 @layer base {
   html,
   body {
-    font-family: var(--font-Poppins);
+    font-family: var(--font-Exo);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   body {
@@ -22,9 +25,11 @@
   }
 }
 
-
 @layer components {
-  .side-bar{
-    @apply bg-[#1C1D22] py-6 px-6
+  .side-bar {
+    @apply bg-[#1C1D22] py-6 px-4;
+  }
+  .projects {
+    @apply py-6 px-4 bg-[#ffffff] dark:bg-[#222327];
   }
 }
