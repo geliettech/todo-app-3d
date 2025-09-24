@@ -1,93 +1,109 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useTasks } from "@/context/TaskContext";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
 
 export default function Projects() {
   const pathname = usePathname();
   const { theme, setLight, setDark } = useTheme();
   const { tasks } = useTasks();
 
-  const [open, setOpen] = useState(["Projects", "Tasks"]);
-  const [activeItem, setActiveItem] = useState({
-    Projects: "design-system",
-    Tasks: "inprogress",
+  const [activeItem, setActiveItem] = useState([2, 3]);
+  const [activeSubItem, setActiveSubItem] = useState({
+    Projects: 2.2,
+    Tasks: 3.3,
   });
 
-  const getCountByStatus = (status) =>
-    tasks.filter((task) => task.status === status).length;
-
-  const navItems = [
-    {
-      id: "Teams",
-      name: "Teams",
-      all: [{ id: "no-team", label: "No team yet" }],
-    },
-    {
-      id: "Projects",
-      name: "Projects",
-      all: [
-        { id: "design-system", label: "Design system" },
-        { id: "user-flow", label: "User flow" },
-        { id: "ux-research", label: "UX research" },
-      ],
-    },
-    {
-      id: "Tasks",
-      name: "Tasks",
-      all: [
-        { id: "all", label: `All tasks (${tasks.length})` },
-        { id: "todo", label: `To do (${getCountByStatus("todo")})` },
-        {
-          id: "inprogress",
-          label: `In progress (${getCountByStatus("inprogress")})`,
-        },
-        { id: "done", label: `Done (${getCountByStatus("done")})` },
-      ],
-    },
-    {
-      id: "Reminders",
-      name: "Reminders",
-      all: [{ id: "no-reminder", label: "No Reminder yet" }],
-    },
-    {
-      id: "Messengers",
-      name: "Messengers",
-      all: [{ id: "no-messenger", label: "No Messenger yet" }],
-    },
-  ];
-
-  const toggleSection = (id) => {
-    setOpen((prev) =>
+  const HandleActiveItem = (id) => {
+    setActiveItem((prev) =>
       prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
     );
   };
 
-  // 🔑 Helper function for arrow icons
-  const getArrowIcon = (id) => {
-    const isOpen = open.includes(id);
+  const getCountByStatus = (status) =>
+    tasks.filter((task) => task.status === status).length;
 
-    if (isOpen) {
-      return theme === "light"
-        ? "/projects-icons/arrowDown-light.png"
-        : "/projects-icons/arrowDown-dark.png";
-    }
-
-    return theme === "light"
-      ? "/projects-icons/arrowRight-light.png"
-      : "/projects-icons/arrowRight-dark.png";
+  const HandleActiveSubItem = () => {
+    setActiveSubItem((prev) => ({
+      ...prev,
+      [item.name]: sub.id,
+    }));
   };
 
+  const navItems = [
+    {
+      id: 1,
+      name: "Team",
+      href: "#",
+      icon:
+        theme === "light"
+          ? "/projects-icons/arrowRight-light.png"
+          : "/projects-icons/arrowRight-dark.png",
+    },
+    {
+      id: 2,
+      name: "Projects",
+      href: "#",
+      icon:
+        theme === "light"
+          ? "/projects-icons/arrowDown-light.png"
+          : "/projects-icons/arrowDown-dark.png",
+      all: [
+        { id: 2.1, href: "#", label: "All projects (3)" },
+        { id: 2.2, href: "#", label: "Design system" },
+        { id: 2.3, href: "#", label: "User flow" },
+        { id: 2.4, href: "#", label: "Ux research" },
+      ],
+    },
+    {
+      id: 3,
+      name: "Tasks",
+      href: "#",
+      icon:
+        theme === "light"
+          ? "/projects-icons/arrowDown-light.png"
+          : "/projects-icons/arrowDown-dark.png",
+      all: [
+        { id: 3.1, href: "#", label: `All tasks (${tasks.length})` },
+        { id: 3.2, href: "#", label: `To do (${getCountByStatus("todo")})` },
+        {
+          id: 3.3,
+          href: "#",
+          label: `In progress (${getCountByStatus("inprogress")})`,
+        },
+        { id: 3.4, href: "#", label: `Done (${getCountByStatus("done")})` },
+      ],
+    },
+    {
+      id: 4,
+      name: "Reminders",
+      href: "#",
+      icon:
+        theme === "light"
+          ? "/projects-icons/arrowRight-light.png"
+          : "/projects-icons/arrowRight-dark.png",
+    },
+    {
+      id: 5,
+      name: "Messengers",
+      href: "#",
+      icon:
+        theme === "light"
+          ? "/projects-icons/arrowRight-light.png"
+          : "/projects-icons/arrowRight-dark.png",
+    },
+  ];
+
   return (
-    <aside className="projects flex flex-col justify-between h-full w-[218px] shadow-2xl transition-colors duration-300">
-      <div>
+    <aside className="projects flex flex-col justify-between h-full w-[240px] shadow-2xl">
+      {/* Title & navigation */}
+      <div className="">
         {/* Sidebar Title */}
-        <div className="flex flex-row justify-between items-center gap-2">
-          <h1 className="text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7 font-Exo">
-            Projects
-          </h1>
+        <h1 className="flex items-center justify-between text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7 mb-7">
+          <span>Projects</span>
           <Image
             src={
               theme === "light"
@@ -95,79 +111,73 @@ export default function Projects() {
                 : "/projects-icons/circlePlus-dark.png"
             }
             alt="circle plus icon"
-            width={28}
-            height={28}
+            width={24}
+            height={24}
             className="object-contain"
           />
-        </div>
-
-        {/* Nav Sections */}
-        <nav className="space-y-6 mt-9">
-          {navItems.map((item) => {
-            const parentActive = !!activeItem[item.id];
-            return (
-              <div key={item.id}>
-                <div
-                  className={`flex items-center justify-between cursor-pointer ${
-                    parentActive
-                      ? "text-[#1C1D22] dark:text-[#ffffff]"
-                      : "text-slate-500 dark:text-slate-300"
+        </h1>
+        {/* navigation section */}
+        <nav className="flex flex-col gap-6">
+          {navItems.map((item) => (
+            <div key={item.id}>
+              <Link
+                href={item.href}
+                onClick={() => HandleActiveItem(item.id)}
+                className="flex items-center justify-between w-full text-left"
+              >
+                <span
+                  className={`text-sm font-semibold leading-4 ${
+                    activeItem.includes(item.id)
+                      ? "relative before:content-[''] before:absolute before:left-[1px] before:top-[1.6rem] before:w-[1.5px] before:h-28 before:bg-gray-300 dark:before:bg-[#ffffff1a] text-[#1C1D22] dark:text-[#ffffff]"
+                      : "text-gray-500 dark:text-[#e1e1e180]"
                   }`}
-                  onClick={() => toggleSection(item.id)}
                 >
-                  <span className="font-Exo font-bold text-base leading-4">
-                    {item.name}
-                  </span>
-                  <div
-                    className={`relative cursor-pointer ${
-                      parentActive ? "w-2 h-6" : "w-6 h-2"
-                    }`}
-                  >
-                    <Image
-                      src={getArrowIcon(item.id)}
-                      alt={`icon-${item.id}`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
+                  {item.name}
+                </span>
+                <Image
+                  src={item.icon}
+                  alt={`${item.name} icon`}
+                  width={activeItem.includes(item.id) ? 10 : 6} // 8px vs 4px
+                  height={activeItem.includes(item.id) ? 10 : 6}
+                  className="object-contain"
+                />
+              </Link>
 
-                {/* Dropdown items */}
-                {open.includes(item.id) && (
-                  <div className="ml-4 mt-2 space-y-1">
-                    {item.all.map((sub) => (
-                      <div
-                        key={sub.id}
-                        className={`cursor-pointer p-1 rounded-md transition-colors font-medium text-sm ${
-                          activeItem[item.id] === sub.id
-                            ? "bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white"
-                            : "text-slate-500 dark:text-slate-300"
+              {/* Sub-items */}
+              {item.all && activeItem.includes(item.id) && (
+                <div className="ml-6 mt-1 flex flex-col gap-1">
+                  {item.all.map((sub) => (
+                    <Link
+                      href={sub.href}
+                      key={sub.id}
+                      className="relative pl-2 before:content-[''] before:absolute before:left-[-1.3rem] before:top-1/2 before:w-6 before:h-[1.5px] before:bg-gray-300 dark:before:bg-[#ffffff1a]"
+                    >
+                      <button
+                        onClick={HandleActiveSubItem}
+                        className={`block w-auto text-left text-sm font-medium px-3 py-1 rounded-full ${
+                          activeSubItem[item.name] === sub.id
+                            ? "bg-[#e1e1e180] dark:bg-[#ffffff1a] text-[#1C1D22] dark:text-[#ffffff]"
+                            : "text-gray-400 dark:text-[#e1e1e180]"
                         }`}
-                        onClick={() =>
-                          setActiveItem((prev) => ({
-                            ...prev,
-                            [item.id]: sub.id,
-                          }))
-                        }
                       >
                         {sub.label}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                      </button>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </nav>
       </div>
 
       {/* Theme Toggle */}
-      <div className="flex items-center justify-between p-2 mt-10 bg-slate-200 dark:bg-slate-700 rounded-full transition-colors">
-        {/* Moon button (dark) */}
+      <div className="flex items-center justify-between p-2 bg-[#e1e1e180] dark:bg-[#ffffff1a] rounded-full">
+        {/* Light */}
         <div
           onClick={setLight}
           className={`p-2 rounded-full cursor-pointer ${
-            theme === "light" ? "bg-white" : ""
+            theme === "light" ? "bg-[#ffffff] w-[50%] shadow-lg" : ""
           }`}
         >
           <Image
@@ -176,18 +186,17 @@ export default function Projects() {
                 ? "/projects-icons/sun-light.png"
                 : "/projects-icons/sun-dark.png"
             }
-            alt="moon icon"
+            alt="sun icon"
             width={20}
             height={20}
-            className="h-5 w-5 object-contain"
           />
         </div>
 
-        {/* Sun button (light) */}
+        {/* Dark */}
         <div
           onClick={setDark}
           className={`p-2 rounded-full cursor-pointer ${
-            theme === "dark" ? "bg-slate-900" : ""
+            theme === "dark" ? "bg-[#1C1D22] w-[50%] shadow-lg" : ""
           }`}
         >
           <Image
@@ -196,10 +205,9 @@ export default function Projects() {
                 ? "/projects-icons/moon-dark.png"
                 : "/projects-icons/moon-light.png"
             }
-            alt="sun icon"
+            alt="moon icon"
             width={20}
             height={20}
-            className="h-5 w-5 object-contain"
           />
         </div>
       </div>
