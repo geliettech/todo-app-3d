@@ -27,7 +27,7 @@ export default function TaskBoard() {
     <div className="flex space-x-6 overflow-x-auto p-4">
       {/* Conditionally render based on the filterStatus */}
       {(filterStatus === 'all' || filterStatus === 'todo') && (
-        <div className="flex-1 w-96 min-w-96 space-y-4">
+        <div className="flex-1 w-[320px] min-w-[320px] space-y-4">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center justify-between">
             To do ({getCountByStatus('todo')})
             <button onClick={() => handleAddTask('todo')} className="flex items-center space-x-1 text-sm text-slate-500 hover:text-indigo-500 transition-colors">
@@ -42,7 +42,7 @@ export default function TaskBoard() {
       )}
 
       {(filterStatus === 'all' || filterStatus === 'inprogress') && (
-        <div className="flex-1 w-96 min-w-96 space-y-4">
+        <div className="flex-1 w-[320px] min-w-[320px] space-y-4">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center justify-between">
             In progress ({getCountByStatus('inprogress')})
             <button onClick={() => handleAddTask('inprogress')} className="flex items-center space-x-1 text-sm text-slate-500 hover:text-indigo-500 transition-colors">
@@ -57,7 +57,7 @@ export default function TaskBoard() {
       )}
 
       {(filterStatus === 'all' || filterStatus === 'done') && (
-        <div className="flex-1 w-96 min-w-96 space-y-4">
+        <div className="flex-1 w-[320px] min-w-[320px] space-y-4">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center justify-between">
             Done ({getCountByStatus('done')})
             <button onClick={() => handleAddTask('done')} className="flex items-center space-x-1 text-sm text-slate-500 hover:text-indigo-500 transition-colors">

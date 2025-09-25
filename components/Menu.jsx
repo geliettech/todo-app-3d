@@ -1,35 +1,65 @@
 // components/menu.jsx
 "use client";
-import { FiGrid, FiPlus, FiFilter, FiArrowDown, FiMoreVertical } from 'react-icons/fi';
+import Image from "next/image";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Menu() {
+  const { theme } = useTheme();
+
   return (
-    <div className="flex items-center justify-between menu border-b border-slate-200 dark:border-slate-700  text-slate-900 dark:text-white transition-colors">
-      <div className="flex items-center space-x-6">
-        <div className="flex items-center space-x-2 cursor-pointer" onClick={() => console.log('Board view clicked!')}>
-          <FiGrid className="text-indigo-500" />
-          <span className="font-semibold">Board view</span>
+    <div className="flex items-center justify-between menu border-b border-gray-300">
+      {/* left menu */}
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2 menu-tab--active">
+          <Image
+            src={
+              theme === "light"
+                ? "/menu-icons/board-light.png"
+                : "/menu-icons/board-dark.png"
+            }
+            alt="Board view Icon"
+            width={18}
+            height={18}
+          />
+          <span className="text-base font-semibold leading-4">
+            Board view
+          </span>
         </div>
-        <div className="flex items-center space-x-2 text-slate-500 cursor-pointer hover:text-indigo-500 transition-colors" onClick={() => console.log('Add view clicked!')}>
-          <FiPlus />
-          <span>Add view</span>
+        <div className="flex items-center gap-2">
+          <Image
+            src={
+              theme === "light"
+                ? "/menu-icons/add-light.png"
+                : "/menu-icons/add-dark.png"
+            }
+            alt="Add view Icon"
+            width={18}
+            height={18}
+          />
+          <span className="text-base font-semibold leading-4 text-gray-500">
+            Add view
+          </span>
         </div>
       </div>
-
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-2 text-slate-500 cursor-pointer hover:text-indigo-500 transition-colors" onClick={() => console.log('Filter clicked!')}>
-          <FiFilter />
-          <span>Filter</span>
+      {/* right menu */}
+      <div className="flex items-center gap-6">
+        <div className="text-base font-semibold leading-4">Filter</div>
+        <div className="flex items-center gap-2">
+          <span className="text-base font-semibold leading-4 text-gray-500">
+            Sort
+          </span>
+          <Image
+            src={
+              theme === "light"
+                ? "/menu-icons/More-light.png"
+                : "/menu-icons/More-dark.png"
+            }
+            alt="calendar Icon"
+            width={26}
+            height={26}
+          />
         </div>
-        <div className="flex items-center space-x-2 text-slate-500 cursor-pointer hover:text-indigo-500 transition-colors" onClick={() => console.log('Sort clicked!')}>
-          <FiArrowDown />
-          <span>Sort</span>
-        </div>
-        <FiMoreVertical className="text-slate-500 cursor-pointer hover:text-slate-700 transition-colors" onClick={() => console.log('More options clicked!')} />
-        <button className="flex items-center space-x-2 px-4 py-2 bg-black text-white rounded-lg font-medium shadow-md hover:bg-indigo-600 transition-colors" onClick={() => console.log('New template clicked!')}>
-          <FiPlus />
-          <span>New template</span>
-        </button>
+        <button className="text-base font-semibold leading-4 bg-[#1C1D22] dark:bg-[#4B69FF] text-[#ffffff] py-3 px-6 rounded-full">New template</button>
       </div>
     </div>
   );

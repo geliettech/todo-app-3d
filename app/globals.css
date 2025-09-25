@@ -28,18 +28,21 @@
 
 @layer components {
   .side-bar {
-    @apply bg-[#1C1D22] py-6 px-4;
+    @apply bg-[#1C1D22] py-6 px-4 transition-colors;
   }
   .projects {
-    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327];
+    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] transition-colors;
   }
   .header {
-    @apply py-6 px-8 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff];
+    @apply py-6 px-8 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff] transition-colors;
   }
   .menu {
-    @apply pb-2 px-8 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff];
+    @apply py-2 px-8 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff] transition-colors;
+  }
+  .menu-tab--active {
+    @apply relative before:content-[''] before:absolute before:h-[2px] before:w-28 before:bg-[#1C1D22] dark:before:bg-[#ffffff] before:left-0 before:bottom-[-1.3rem] 
   }
   .task-card {
-    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff];
+    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff] transition-colors;
   }
 }

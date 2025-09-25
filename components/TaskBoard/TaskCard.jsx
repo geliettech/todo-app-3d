@@ -1,4 +1,4 @@
-// components/TaskCard.js
+// components/TaskCard.jsx
 "use client";
 import React, { useState } from 'react';
 import { FiCheckCircle, FiMoreHorizontal } from 'react-icons/fi';
