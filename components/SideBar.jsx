@@ -46,7 +46,7 @@ export default function SideBar() {
           );
         })}
       </div>
-      <div className="relative w-6 h-6">
+      <div className="relative flex w-6 h-6">
         <Image
           src="/sideBar-icons/Icon.svg"
           alt="back icon"

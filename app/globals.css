@@ -34,12 +34,12 @@
     @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327];
   }
   .header {
-    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] text-slate-900 dark:text-white;
+    @apply py-6 px-8 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff];
   }
   .menu {
-    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] text-slate-900 dark:text-white;
+    @apply pb-2 px-8 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff];
   }
   .task-card {
-    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] text-slate-900 dark:text-white;
+    @apply py-6 px-6 bg-[#ffffff] dark:bg-[#222327] text-[#1C1D22] dark:text-[#ffffff];
   }
 }

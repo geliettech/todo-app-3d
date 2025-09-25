@@ -7,7 +7,7 @@ This project is a modern, task management application designed to organize and t
 ## Key Features
 
   * **Kanban Board:** A three-column layout to visually manage tasks in `To Do`, `In Progress`, and `Done` states.
-  * **Dynamic Task Management:** Users can add new tasks, edit existing task details (title and description), and permanently delete tasks.
+  * **Dynamic Task Management:** Users can add new tasks, edit existing task title, and permanently delete tasks.
   * **Interactive Progress Tracking:** Each task card features a real-time progress bar that automatically updates its value and color based on the task's status.
   * **Intuitive UI/UX:** Features include smooth functionality for moving tasks by clicking on dotted line(...) on the todo cards, a persistent light/dark theme toggle, and a subtle hover-and-scale effect on task cards for enhanced user feedback.
   * **Scalable Architecture:** Built with a React Context API for centralized state management, ensuring a predictable data flow and easy-to-manage application state.
@@ -96,6 +96,3 @@ This project can be easily deployed to any hosting platform that supports Next.j
 ## 📜 License
 
 This project is licensed under the MIT License.
-
-```
-```

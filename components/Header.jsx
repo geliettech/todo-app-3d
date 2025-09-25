@@ -1,36 +1,76 @@
-// components/Header.js
-// (Client Component)
+// components/Header.jsx
 "use client";
-import React, { useState, useEffect } from 'react';
-import { FiSearch, FiCalendar, FiBell } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Header() {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
+  const { theme } = useTheme();
 
-useEffect(() => {
-  const today = new Date();
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  setDate(today.toLocaleDateString('en-GB', options)); // 'en-GB' gives this format "22 Sep 2025"
-}, []);
+  useEffect(() => {
+    const today = new Date();
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    setDate(today.toLocaleDateString("en-GB", options)); // 'en-GB' gives this format "22 Sep 2025"
+  }, []);
 
   return (
-    <header className="flex items-center justify-between header  transition-colors">
-      <h1 className="text-2xl font-semibold">Welcome back, Vincent 👋</h1>
+    <header className="flex items-center justify-between header">
+      {/* header title */}
+      <h1 className="text-xl font-bold leading-5">Welcome back, Vincent 👋</h1>
+      {/* header right items (icons, date & Avatar) */}
       <div className="flex items-center space-x-6">
-        <div className=" text-gray-400">
-          <FiSearch size={20} className="" />
+          <Image
+            src={
+              theme === "light"
+                ? "/header-img/search-light.png"
+                : "/header-img/search-dark.png"
+            }
+            alt="search Icon"
+            width={22}
+            height={22}
+          />
+        <div className="relative">
+          <Image
+            src={
+              theme === "light"
+                ? "/header-img/notification-light.png"
+                : "/header-img/notification-dark.png"
+            }
+            alt="notification Icon"
+            width={22}
+            height={22}
+            className="object-cover"
+          />
+          <div className="absolute top-[2px] right-[2px]">
+            <Image
+              src="/header-img/Badge.png"
+              alt="badge"
+              width={6}
+            height={6}
+            />
           </div>
-          <div className="relative text-slate-500 cursor-pointer" onClick={() => console.log('Notifications clicked!')}>
-          <FiBell size={20} />
-          <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
         </div>
         <div className="flex items-center space-x-2">
-          <FiCalendar size={20} className="text-slate-500" />
-          <span className="text-sm font-medium">{date}</span>
+          <Image
+            src={
+              theme === "light"
+                ? "/header-img/calendar-light.png"
+                : "/header-img/calendar-dark.png"
+            }
+            alt="calendar Icon"
+            width={22}
+            height={22} />
+          <span className="text-base font-semibold text-gray-500 leading-4">{date}</span>
         </div>
-        
-        <div className="w-10 h-10 rounded-full overflow-hidden">
-          <img src="https://i.pravatar.cc/150?u=vincent" alt="User Avatar" />
+
+        <div className="relative w-10 h-10 rounded-full overflow-hidden">
+          <Image
+            src="/header-img/avatar.png"
+            alt="User Avatar"
+            fill
+            className="object-contain"
+          />
         </div>
       </div>
     </header>

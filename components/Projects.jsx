@@ -102,7 +102,7 @@ export default function Projects() {
       {/* Title & navigation */}
       <div className="">
         {/* Sidebar Title */}
-        <h1 className="flex items-center justify-between text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7 mb-7">
+        <h1 className="flex items-center justify-between text-[#1C1D22] dark:text-[#ffffff] text-3xl font-bold leading-7 mb-9">
           <span>Projects</span>
           <Image
             src={
@@ -126,10 +126,10 @@ export default function Projects() {
                 className="flex items-center justify-between w-full text-left"
               >
                 <span
-                  className={`text-sm font-semibold leading-4 ${
+                  className={`text-base font-bold leading-4 ${
                     activeItem.includes(item.id)
-                      ? "relative before:content-[''] before:absolute before:left-[1px] before:top-[1.6rem] before:w-[1.5px] before:h-28 before:bg-gray-300 dark:before:bg-[#ffffff1a] text-[#1C1D22] dark:text-[#ffffff]"
-                      : "text-gray-500 dark:text-[#e1e1e180]"
+                      ? "relative before:content-[''] before:absolute before:left-[1px] before:top-[1.6rem] before:w-[1.5px] before:h-26 before:bg-gray-300 dark:before:bg-[#ffffff1a] text-[#1C1D22] dark:text-[#ffffff]"
+                      : "text-gray-400 dark:text-[#e1e1e180]"
                   }`}
                 >
                   {item.name}
@@ -154,7 +154,7 @@ export default function Projects() {
                     >
                       <button
                         onClick={HandleActiveSubItem}
-                        className={`block w-auto text-left text-sm font-medium px-3 py-1 rounded-full ${
+                        className={`block w-auto text-left text-base font-semibold leading-4 px-3 py-1 rounded-full ${
                           activeSubItem[item.name] === sub.id
                             ? "bg-[#e1e1e180] dark:bg-[#ffffff1a] text-[#1C1D22] dark:text-[#ffffff]"
                             : "text-gray-400 dark:text-[#e1e1e180]"
