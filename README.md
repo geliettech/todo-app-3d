@@ -83,7 +83,6 @@ This project can be easily deployed to any hosting platform that supports Next.j
 
   * [Vercel](https://vercel.com/) (recommended)
   * [Netlify](https://www.netlify.com/)
-  * [Render](https://render.com/)
 
 -----
 
