@@ -16,7 +16,7 @@ This project is a modern, task management application designed to organize and t
 -----
 
 ## Technical Stack
-
+authentication: next/auth
   * **Framework:** Next.js (App Router) 
   * **Styling:** Tailwind CSS
   * **State Management:** React Context API
